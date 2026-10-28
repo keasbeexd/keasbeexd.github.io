@@ -1,0 +1,59 @@
+:root {
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --text: #1b2236;
+  --muted: #5b6478;
+  --line: #e2e6ef;
+  --accent: #2f4274;
+  --accent-text: #ffffff;
+  --link: #2f4ea8;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #10141f;
+    --surface: #171c2a;
+    --text: #e8ebf3;
+    --muted: #a2aabd;
+    --line: #283047;
+    --accent: #f2c063;
+    --accent-text: #1b2236;
+    --link: #9db6ff;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+main, header.site, footer.site { max-width: 44rem; margin: 0 auto; padding-inline: 1.25rem; }
+header.site { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.25rem; }
+header.site a.home { color: var(--text); font-weight: 700; text-decoration: none; letter-spacing: -0.01em; }
+header.site nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+header.site nav a { color: var(--muted); text-decoration: none; font-size: 0.95rem; }
+header.site nav a:hover { color: var(--text); }
+main { padding-block: 1.5rem 3rem; }
+h1 { font-size: 2.2rem; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 0.5rem; }
+h2 { font-size: 1.3rem; margin: 2.25rem 0 0.5rem; letter-spacing: -0.01em; }
+h3 { font-size: 1.05rem; margin: 1.5rem 0 0.25rem; }
+p, ul { margin: 0 0 1rem; }
+ul { padding-left: 1.25rem; }
+li { margin-bottom: 0.35rem; }
+a { color: var(--link); }
+.lede { font-size: 1.15rem; color: var(--muted); max-width: 36rem; }
+.muted { color: var(--muted); }
+.hero { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.hero img { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 6px 20px rgba(20, 30, 60, 0.25); }
+.cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin: 1rem 0 2rem; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.1rem; text-decoration: none; color: var(--text); display: block; }
+.card:hover { border-color: var(--muted); }
+.card strong { display: block; margin-bottom: 0.2rem; }
+.card span { color: var(--muted); font-size: 0.95rem; }
+.button { display: inline-block; background: var(--accent); color: var(--accent-text); padding: 0.6rem 1rem; border-radius: 10px; text-decoration: none; font-weight: 600; margin: 0 0.5rem 0.5rem 0; }
+.button.secondary { background: transparent; color: var(--text); border: 1px solid var(--line); }
+.note { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0.9rem 1.1rem; margin: 1rem 0 1.5rem; }
+footer.site { border-top: 1px solid var(--line); padding-block: 1.25rem 2rem; color: var(--muted); font-size: 0.9rem; }
+footer.site a { color: var(--muted); }
