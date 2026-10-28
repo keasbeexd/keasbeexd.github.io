@@ -197,10 +197,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   padding-right: max(10px, env(safe-area-inset-right, 0px), calc((100% - 76rem) / 2 + 18px - 0.6ch));
   display: flex;
   flex-wrap: wrap;
-  gap: 0 2ch;
+  gap: 0 4ch;
   font: 400 1.35rem/1.15 var(--font-dos);
 }
 .foot span { padding-inline: 0.6ch; }
-.foot span + span::before { content: "\2502"; margin-right: 2ch; color: #555555; }
 .foot span:last-child { margin-left: auto; }
-.foot span:last-child::before { content: none; }
