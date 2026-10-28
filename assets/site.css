@@ -1,5 +1,5 @@
 /* Personal page: a Turbo Pascal IDE screen, using the colors of the Omarchy Turbo Pascal theme.
-   Menu bar on top, double-bordered windows tiled with gaps like Hyprland, status bar below.
+   Menu bar on top, double-bordered windows tiled with gaps like Hyprland.
    One look in both light and dark mode, on purpose. */
 
 @font-face { font-family: "VT323"; src: url("fonts/vt323.woff2") format("woff2"); font-display: swap; }
@@ -45,8 +45,8 @@ a { color: var(--cyan); text-underline-offset: 0.2em; }
 a:focus-visible, .btn:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 p { margin: 0; }
 
-/* Menu bar and status bar */
-.menubar, .statusbar {
+/* Menu bar */
+.menubar {
   background: var(--grey);
   color: var(--black);
   font: 400 1.35rem/1 var(--font-dos);
@@ -59,13 +59,11 @@ p { margin: 0; }
 }
 .menubar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; padding-block: 0.3rem; box-shadow: 0 2px 0 var(--black); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--grey); z-index: 6; }
-.menubar a, .statusbar a { color: var(--black); text-decoration: none; padding: 0.15rem 0.6ch; }
-.menubar a:hover, .statusbar a:hover { background: var(--green); color: var(--black); }
+.menubar a { color: var(--black); text-decoration: none; padding: 0.15rem 0.6ch; }
+.menubar a:hover { background: var(--green); color: var(--black); }
 .menubar .sys { font-weight: bold; }
 .menubar .who { margin-left: auto; padding-right: 0.6ch; }
 .hot { color: var(--red); }
-.statusbar { margin-top: auto; padding-block: 0.3rem calc(0.3rem + env(safe-area-inset-bottom, 0px)); gap: 0 1rem; }
-.statusbar .msg { margin-left: auto; padding-right: 0.6ch; }
 
 /* Tiled windows */
 .desktop {
@@ -73,7 +71,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   width: 100%;
   max-width: 76rem;
   margin-inline: auto;
-  padding-block: 2.25rem 2.75rem;
+  padding-block: 2.25rem calc(2.75rem + env(safe-area-inset-bottom, 0px));
   padding-left: max(18px, env(safe-area-inset-left, 0px));
   padding-right: max(18px, env(safe-area-inset-right, 0px));
   display: grid;
