@@ -171,7 +171,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 /* Support: a dialog with the IDE's green buttons */
 .support .text { display: grid; gap: 0.9rem; }
-.support .text p:last-child { color: var(--grey); font-size: 0.9rem; }
 .buttons { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; margin-top: 1.4rem; }
 .btn {
   display: inline-block;
