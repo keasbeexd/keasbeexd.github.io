@@ -1,0 +1,154 @@
+/* Cloudroll pages: the icon's night navy as a flat band, a sprocket edge under it,
+   features printed as frames on a contact sheet, documents in one reading column. */
+
+@font-face { font-family: "Fredoka"; src: url("/assets/fonts/fredoka.woff2") format("woff2"); font-weight: 500 600; font-display: swap; }
+@font-face { font-family: "Figtree"; src: url("/assets/fonts/figtree.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: "IBM Plex Mono"; src: url("/assets/fonts/plex-mono-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+
+:root {
+  /* Fixed brand colors, from the app icon */
+  --night: #1a2546;
+  --night-deep: #111933;
+  --cloud: #fffaf1;
+  --cloud-dim: #d9cfbd;
+  --amber: #ffcb6b;
+
+  /* Theme tokens (light) */
+  --page: #f2f3f7;
+  --sheet: #ffffff;
+  --ink: #161d33;
+  --ink-soft: #545d78;
+  --rule: #d8dce8;
+  --link: #2c4aa0;
+  --film: #14171f;
+  --edge-print: #e8a33d;
+  --focus: #2c4aa0;
+
+  --font-display: "Fredoka", "Nunito", "Arial Rounded MT Bold", ui-rounded, system-ui, sans-serif;
+  --font-body: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page: #0c1020;
+    --sheet: #161c30;
+    --ink: #eceef5;
+    --ink-soft: #a5acc2;
+    --rule: #252d47;
+    --link: #a9bdf5;
+    --film: #05070d;
+    --focus: #ffcb6b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --page: #0c1020;
+  --sheet: #161c30;
+  --ink: #eceef5;
+  --ink-soft: #a5acc2;
+  --rule: #252d47;
+  --link: #a9bdf5;
+  --film: #05070d;
+  --focus: #ffcb6b;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 400 1.0625rem/1.65 var(--font-body); }
+a { color: var(--link); text-underline-offset: 0.18em; }
+a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 3px; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 600; line-height: 1.15; text-wrap: balance; }
+p { margin: 0; }
+
+.wrap {
+  max-width: 62rem;
+  margin-inline: auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+
+/* Night band */
+.band { background: var(--night); color: var(--cloud); }
+.band a { color: var(--cloud); }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; flex-wrap: wrap; padding-block: 1rem; font-size: 0.9375rem; }
+.topbar .mark { display: inline-flex; align-items: center; gap: 0.55rem; font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; text-decoration: none; }
+.topbar .mark img { width: 28px; height: 28px; border-radius: 6.5px; }
+.topbar nav { display: flex; gap: 0.25rem 1.25rem; flex-wrap: wrap; }
+.topbar nav a { text-decoration: none; color: var(--cloud-dim); }
+.topbar nav a:hover, .topbar nav a[aria-current="page"] { color: var(--cloud); text-decoration: underline; }
+.topbar .by { color: var(--cloud-dim); }
+
+.hero { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem 2.25rem; align-items: center; padding-block: 2.75rem 3.25rem; }
+.hero .icon { width: clamp(104px, 17vw, 152px); height: auto; aspect-ratio: 1; border-radius: 23%; box-shadow: 0 14px 30px rgba(4, 7, 18, 0.5); }
+.hero .text { display: grid; gap: 0.85rem; justify-items: start; }
+.hero h1 { font-size: clamp(2.6rem, 1.8rem + 3.5vw, 4rem); letter-spacing: -0.01em; }
+.hero .lede { font-size: 1.3rem; line-height: 1.45; color: var(--cloud-dim); max-width: 31rem; }
+.hero .row { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center; margin-top: 0.5rem; }
+.hero .soon { font-size: 0.9375rem; color: var(--cloud-dim); }
+@media (max-width: 560px) { .hero { grid-template-columns: 1fr; } }
+
+.btn { display: inline-block; padding: 0.6rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.9375rem; text-decoration: none; background: var(--amber); color: var(--night-deep); }
+.band .btn { color: var(--night-deep); }
+.btn:hover { background: #ffd98f; }
+
+/* Sprocket edge between the band and the page */
+.sprockets {
+  height: 24px;
+  background: var(--film);
+  /* Holes are cut out, so the page shows through them in either theme */
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='24'%3E%3Cpath fill-rule='evenodd' d='M0 0H22V24H0Z M8 7H14Q16 7 16 9V15Q16 17 14 17H8Q6 17 6 15V9Q6 7 8 7Z'/%3E%3C/svg%3E") 4px 0 / 22px 24px repeat-x;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='24'%3E%3Cpath fill-rule='evenodd' d='M0 0H22V24H0Z M8 7H14Q16 7 16 9V15Q16 17 14 17H8Q6 17 6 15V9Q6 7 8 7Z'/%3E%3C/svg%3E") 4px 0 / 22px 24px repeat-x;
+}
+
+/* Page sections */
+.section { padding-block: 3.25rem; display: grid; gap: 1.5rem; }
+.section + .section { border-top: 1px solid var(--rule); }
+.section > h2 { font-size: 1.75rem; }
+.section .note { color: var(--ink-soft); max-width: 38rem; }
+
+/* Contact sheet: each feature is one frame, with the film's edge print above it */
+.sheet { background: var(--film); padding: 0.4rem 0.6rem 0.7rem; display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 0.6rem; }
+@media (max-width: 860px) { .sheet { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .sheet { grid-template-columns: 1fr; } }
+.frame { display: grid; grid-template-rows: auto 1fr; }
+.frame .edge { font-family: var(--font-mono); font-weight: 500; font-size: 0.6875rem; letter-spacing: 0.06em; color: var(--edge-print); padding: 0.35rem 0.1rem; display: flex; justify-content: space-between; font-variant-numeric: tabular-nums; }
+.frame .shot { background: var(--sheet); border-radius: 2px; padding: 1.05rem 1.1rem 1.2rem; display: grid; gap: 0.35rem; align-content: start; }
+.frame h3 { font-size: 1.2rem; }
+.frame p { color: var(--ink-soft); font-size: 0.975rem; line-height: 1.55; }
+
+/* Requirements, set like the data on a film box */
+.specs { display: grid; grid-template-columns: max-content 1fr; margin: 0; max-width: 40rem; border-top: 1px solid var(--rule); }
+.specs dt, .specs dd { margin: 0; padding-block: 0.8rem; border-bottom: 1px solid var(--rule); }
+.specs dt { font-family: var(--font-mono); font-weight: 500; font-size: 0.8125rem; color: var(--ink-soft); padding-right: 2.5rem; padding-top: 0.95rem; }
+@media (max-width: 480px) {
+  .specs { grid-template-columns: 1fr; }
+  .specs dt { border-bottom: 0; padding-bottom: 0; }
+}
+
+.free p { max-width: 38rem; }
+.free p + p { color: var(--ink-soft); }
+
+/* Documents: privacy and support */
+.doc-head { padding-block: 2.25rem 2.75rem; display: grid; gap: 0.6rem; }
+.doc-head h1 { font-size: clamp(2rem, 1.6rem + 2vw, 2.75rem); }
+.doc-head p { color: var(--cloud-dim); }
+.doc { padding-block: 2.75rem 4rem; display: grid; gap: 2.5rem; max-width: 40rem; }
+.doc section { display: grid; gap: 0.85rem; }
+.doc h2 { font-size: 1.35rem; }
+.doc h3 { font-family: var(--font-body); font-weight: 700; font-size: 1.0625rem; }
+.doc ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.6rem; }
+.doc .qa { display: grid; gap: 0.35rem; }
+
+/* Modeled on the App Store's privacy label */
+.label { background: var(--sheet); border: 1px solid var(--rule); border-radius: 14px; padding: 1.25rem 1.4rem; display: grid; grid-template-columns: auto 1fr; gap: 0.2rem 1rem; align-items: center; }
+.label svg { grid-row: span 2; width: 40px; height: 40px; color: var(--ink); }
+.label strong { font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; }
+.label p { color: var(--ink-soft); font-size: 0.975rem; }
+
+/* Footer */
+.foot { border-top: 1px solid var(--rule); font-size: 0.875rem; color: var(--ink-soft); }
+.foot .wrap { padding-block: 1.75rem 2.5rem; display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; justify-content: space-between; }
+.foot nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; }
+.foot a { color: var(--ink-soft); }
