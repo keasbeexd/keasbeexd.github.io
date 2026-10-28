@@ -71,7 +71,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   width: 100%;
   max-width: 76rem;
   margin-inline: auto;
-  padding-block: 2.25rem calc(2.75rem + env(safe-area-inset-bottom, 0px));
+  padding-block: 2.25rem 2.75rem;
   padding-left: max(18px, env(safe-area-inset-left, 0px));
   padding-right: max(18px, env(safe-area-inset-right, 0px));
   display: grid;
@@ -184,3 +184,19 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .btn:hover { background: #22c022; }
 .btn:active { transform: translate(0.8ch, 0.4rem); box-shadow: none; }
 .btn .hot { color: var(--yellow); }
+
+/* Footer: a quiet line under the windows */
+.foot {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-block: 0 calc(1.75rem + env(safe-area-inset-bottom, 0px));
+  padding-left: max(18px, env(safe-area-inset-left, 0px));
+  padding-right: max(18px, env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 2ch;
+  font: 400 1.2rem/1.3 var(--font-dos);
+  color: var(--grey);
+}
+.foot span + span::before { content: "\00B7"; margin-right: 2ch; color: rgba(170, 170, 170, 0.6); }
