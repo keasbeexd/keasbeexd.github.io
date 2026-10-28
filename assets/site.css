@@ -185,18 +185,21 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .btn:active { transform: translate(0.8ch, 0.4rem); box-shadow: none; }
 .btn .hot { color: var(--yellow); }
 
-/* Footer: a quiet line under the windows */
+/* Footer: the IDE's grey status line along the bottom */
 .foot {
-  width: 100%;
-  max-width: 76rem;
-  margin-inline: auto;
-  padding-block: 0 calc(1.75rem + env(safe-area-inset-bottom, 0px));
-  padding-left: max(18px, env(safe-area-inset-left, 0px));
-  padding-right: max(18px, env(safe-area-inset-right, 0px));
+  margin-top: auto;
+  background: var(--grey);
+  color: var(--black);
+  box-shadow: 0 -2px 0 var(--black);
+  padding-block: 0.3rem calc(0.3rem + env(safe-area-inset-bottom, 0px));
+  padding-left: max(10px, env(safe-area-inset-left, 0px));
+  padding-right: max(10px, env(safe-area-inset-right, 0px));
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 2ch;
-  font: 400 1.2rem/1.3 var(--font-dos);
-  color: var(--grey);
+  gap: 0 2ch;
+  font: 400 1.35rem/1.15 var(--font-dos);
 }
-.foot span + span::before { content: "\00B7"; margin-right: 2ch; color: rgba(170, 170, 170, 0.6); }
+.foot span { padding-inline: 0.6ch; }
+.foot span + span::before { content: "\2502"; margin-right: 2ch; color: #555555; }
+.foot span:last-child { margin-left: auto; }
+.foot span:last-child::before { content: none; }
