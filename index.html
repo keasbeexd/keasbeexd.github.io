@@ -5,59 +5,86 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>keasbeexd</title>
 <meta name="description" content="Free, open-source software by keasbeexd: Cloudroll, an iPhone app for Nextcloud Memories, and plugins for Omarchy.">
+<meta name="theme-color" content="#aaaaaa">
 <link rel="stylesheet" href="/assets/site.css">
-<link rel="preload" href="/assets/fonts/plex-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/vt323.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
-<main class="page">
-  <header class="intro">
-    <h1>keasbeexd</h1>
-    <p>I make free software for the things I use every day: an iPhone app for my self-hosted photos, and plugins for my Omarchy desktop.</p>
-    <p>All of it is open source on <a href="https://github.com/keasbeexd">GitHub</a>. None of it has a paid tier.</p>
-  </header>
+<nav class="menubar" aria-label="Main">
+  <span class="sys" aria-hidden="true">&#8801;</span>
+  <a href="#projects" accesskey="p"><span class="hot">P</span>rojects</a>
+  <a href="/cloudroll/" accesskey="c"><span class="hot">C</span>loudroll</a>
+  <a href="#support" accesskey="s"><span class="hot">S</span>upport</a>
+  <a href="https://github.com/keasbeexd" accesskey="g"><span class="hot">G</span>itHub</a>
+  <span class="who">keasbeexd</span>
+</nav>
 
-  <section aria-labelledby="projects">
-    <h2 id="projects">Projects</h2>
-    <table class="ledger">
+<main class="desktop">
+  <section class="win about active" data-n="1" aria-labelledby="about-title">
+    <h2 id="about-title">ABOUT.PAS</h2>
+    <p class="src"><span class="kw">program</span> <span class="id">Keasbeexd</span>;</p>
+    <p class="src"><span class="kw">uses</span> <span class="id">Arch</span>, <span class="id">Omarchy</span>, <span class="id">Nextcloud</span>;</p>
+    <div class="prose">
+      <p>I make free software for the things I use every day: an iPhone app for my self-hosted photos, and plugins for my Omarchy desktop.</p>
+      <p>All of it is open source on <a href="https://github.com/keasbeexd">GitHub</a>. None of it has a paid tier.</p>
+    </div>
+    <p class="src"><span class="kw">begin</span> <span class="cm">{ more soon }</span> <span class="kw">end</span>.<span class="cursor" aria-hidden="true"></span></p>
+  </section>
+
+  <section class="win projects" id="projects" data-n="2" aria-labelledby="projects-title">
+    <h2 id="projects-title">PROJECTS.DIR</h2>
+    <table class="files">
+      <thead>
+        <tr><th scope="col">Name</th><th scope="col">What it does</th><th scope="col">Runs on</th></tr>
+      </thead>
       <tbody>
         <tr>
           <td class="name"><a href="/cloudroll/">Cloudroll</a></td>
-          <td class="what">An iPhone app for Memories, the photo gallery for Nextcloud. In testing, coming to the App Store.<code>io.github.keasbeexd.cloudroll</code></td>
+          <td class="what">An iPhone app for Memories, the photo gallery for Nextcloud. In testing, coming to the App Store.<br><code>io.github.keasbeexd.cloudroll</code></td>
           <td class="runs">iOS</td>
         </tr>
         <tr>
           <td class="name"><a href="https://github.com/keasbeexd/omarchy-keepwell">Keepwell</a></td>
-          <td class="what">Security, privacy and system care in one place, built on the standard tools Arch already has.<code>keasbeexd.keepwell</code></td>
+          <td class="what">Security, privacy and system care in one place, built on the standard tools Arch already has.<br><code>keasbeexd.keepwell</code></td>
           <td class="runs">Omarchy</td>
         </tr>
         <tr>
           <td class="name"><a href="https://github.com/keasbeexd/omarchy-mouse-ctrl">Mouse CTRL</a></td>
-          <td class="what">Battery, DPI stages, LED colors, polling rate and sensor settings for G-Wolves and Pulsar mice, with a read-only view for other mice.<code>keasbeexd.mousectrl</code></td>
+          <td class="what">Battery, DPI stages, LED colors, polling rate and sensor settings for G-Wolves and Pulsar mice, with a read-only view for other mice.<br><code>keasbeexd.mousectrl</code></td>
           <td class="runs">Omarchy</td>
         </tr>
         <tr>
           <td class="name"><a href="https://github.com/keasbeexd/omarchy-spanned-background">Spanned Background</a></td>
-          <td class="what">One wallpaper stretched across every connected monitor, like Windows' Span mode.<code>keasbeexd.spanned-background</code></td>
+          <td class="what">One wallpaper stretched across every connected monitor, like Windows' Span mode.<br><code>keasbeexd.spanned-background</code></td>
           <td class="runs">Omarchy</td>
         </tr>
         <tr>
           <td class="name"><a href="https://github.com/keasbeexd/omarchy-turbo-pascal-extras">Turbo Pascal Extras</a></td>
-          <td class="what">A few extras to go with the <a href="https://github.com/keylimesoda/omarchy-turbo-pascal-theme">Turbo Pascal theme</a>.</td>
+          <td class="what">A few extras for the <a href="https://github.com/keylimesoda/omarchy-turbo-pascal-theme">Turbo Pascal theme</a>, the one this page is dressed in.</td>
           <td class="runs">Omarchy</td>
         </tr>
       </tbody>
     </table>
   </section>
 
-  <section class="support" aria-labelledby="support">
-    <h2 id="support">Support</h2>
-    <p>If something here saves you time, you can chip in on <a href="https://github.com/sponsors/keasbeexd">GitHub Sponsors</a> or <a href="https://ko-fi.com/keasbeexd">Ko-fi</a>. It doesn't unlock anything; it helps pay for the Apple developer fee and the hours.</p>
+  <section class="win support" id="support" data-n="3" aria-labelledby="support-title">
+    <h2 id="support-title">SUPPORT.TXT</h2>
+    <div class="text">
+      <p>If something here saves you time, you can chip in. It doesn't unlock anything. It helps pay for the Apple developer fee and the hours.</p>
+      <p>Cloudroll will also take tips in the app, through the App Store.</p>
+    </div>
+    <div class="buttons">
+      <a class="btn" href="https://github.com/sponsors/keasbeexd"><span class="hot">S</span>ponsor</a>
+      <a class="btn" href="https://ko-fi.com/keasbeexd"><span class="hot">K</span>o-fi</a>
+    </div>
   </section>
-
-  <footer>
-    <a href="https://github.com/keasbeexd">github.com/keasbeexd</a>
-    <a href="https://ko-fi.com/keasbeexd">ko-fi.com/keasbeexd</a>
-  </footer>
 </main>
+
+<footer class="statusbar">
+  <a href="https://github.com/keasbeexd"><span class="hot">Alt-G</span> GitHub</a>
+  <a href="/cloudroll/"><span class="hot">Alt-C</span> Cloudroll</a>
+  <a href="https://ko-fi.com/keasbeexd"><span class="hot">Ko-fi</span></a>
+  <span class="msg">Free software, no paid tier</span>
+</footer>
 </body>
 </html>

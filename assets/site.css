@@ -1,89 +1,188 @@
-/* Personal page: one left-aligned column of text, projects as a ledger
-   (name, what it is, where it runs, its ID). Nothing branded; Cloudroll has its own look. */
+/* Personal page: a Turbo Pascal IDE screen, using the colors of the Omarchy Turbo Pascal theme.
+   Menu bar on top, double-bordered windows tiled with gaps like Hyprland, status bar below.
+   One look in both light and dark mode, on purpose. */
 
-@font-face { font-family: "IBM Plex Sans"; src: url("fonts/plex-sans.woff2") format("woff2"); font-weight: 400 600; font-display: swap; }
-@font-face { font-family: "IBM Plex Mono"; src: url("fonts/plex-mono-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "VT323"; src: url("fonts/vt323.woff2") format("woff2"); font-display: swap; }
+@font-face { font-family: "IBM Plex Mono"; src: url("fonts/plex-mono-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "IBM Plex Mono"; src: url("fonts/plex-mono-500.woff2") format("woff2"); font-weight: 500 700; font-display: swap; }
 
 :root {
-  --paper: #f4f5f2;
-  --ink: #1c1e1b;
-  --ink-soft: #5c6159;
-  --rule: #d9dcd4;
-  --accent: #2443a3;
-  --font-sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* colors.toml from omarchy-turbo-pascal-theme */
+  --dos-blue: #0000aa;
+  --dos-blue-dark: #000088;
+  --dos-blue-light: #0000cc;
+  --white: #ffffff;
+  --grey: #aaaaaa;
+  --cyan: #55ffff;
+  --teal: #00aaaa;
+  --yellow: #ffff55;
+  --red: #aa0000;
+  --green: #00aa00;
+  --black: #000000;
+
+  --font-dos: "VT323", "Px437 IBM VGA 8x16", "Lucida Console", ui-monospace, monospace;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #121411;
-    --ink: #e4e6e0;
-    --ink-soft: #9ba196;
-    --rule: #2b2f29;
-    --accent: #93abf5;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --paper: #121411;
-  --ink: #e4e6e0;
-  --ink-soft: #9ba196;
-  --rule: #2b2f29;
-  --accent: #93abf5;
+  --gap: 14px;
   color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; background: var(--dos-blue); }
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font: 400 1.0625rem/1.65 var(--font-sans);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  color: var(--white);
+  font: 400 1rem/1.7 var(--font-mono);
+  /* The IDE desktop: a fine shade pattern on blue */
+  background-color: var(--dos-blue);
+  background-image: radial-gradient(rgba(170, 170, 255, 0.22) 1px, transparent 1.2px);
+  background-size: 6px 6px;
 }
-a { color: var(--accent); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
-a:hover { text-decoration-thickness: 2px; }
-a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+a { color: var(--cyan); text-underline-offset: 0.2em; }
+a:focus-visible, .btn:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
+p { margin: 0; }
 
-.page {
-  max-width: 46rem;
-  padding-block: 4rem 3rem;
-  padding-left: max(24px, env(safe-area-inset-left, 0px));
-  padding-right: max(24px, env(safe-area-inset-right, 0px));
-  margin-left: max(0px, calc((100vw - 62rem) / 2));
+/* Menu bar and status bar */
+.menubar, .statusbar {
+  background: var(--grey);
+  color: var(--black);
+  font: 400 1.35rem/1 var(--font-dos);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 0.25rem;
+  padding-left: max(10px, env(safe-area-inset-left, 0px));
+  padding-right: max(10px, env(safe-area-inset-right, 0px));
+}
+.menubar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; padding-block: 0.3rem; box-shadow: 0 2px 0 var(--black); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--grey); z-index: 6; }
+.menubar a, .statusbar a { color: var(--black); text-decoration: none; padding: 0.15rem 0.6ch; }
+.menubar a:hover, .statusbar a:hover { background: var(--green); color: var(--black); }
+.menubar .sys { font-weight: bold; }
+.menubar .who { margin-left: auto; padding-right: 0.6ch; }
+.hot { color: var(--red); }
+.statusbar { margin-top: auto; padding-block: 0.3rem calc(0.3rem + env(safe-area-inset-bottom, 0px)); gap: 0 1rem; }
+.statusbar .msg { margin-left: auto; padding-right: 0.6ch; }
+
+/* Tiled windows */
+.desktop {
+  flex: 1;
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-block: 2.25rem 2.75rem;
+  padding-left: max(18px, env(safe-area-inset-left, 0px));
+  padding-right: max(18px, env(safe-area-inset-right, 0px));
   display: grid;
-  gap: 3.5rem;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  grid-template-areas: "about support" "projects projects";
+  gap: calc(var(--gap) * 2) calc(var(--gap) * 1.6);
+  align-items: start;
+}
+@media (max-width: 820px) {
+  .desktop { grid-template-columns: minmax(0, 1fr); grid-template-areas: "about" "projects" "support"; }
 }
 
-.intro { display: grid; gap: 1rem; }
-.intro h1 { margin: 0; font-size: 1.15rem; font-weight: 600; font-family: var(--font-mono); letter-spacing: 0.01em; }
-.intro p { margin: 0; font-size: 1.45rem; line-height: 1.45; max-width: 34rem; text-wrap: pretty; }
-.intro p + p { font-size: 1.0625rem; line-height: 1.65; color: var(--ink-soft); }
+.win {
+  position: relative;
+  background: var(--dos-blue);
+  border: 4px double var(--grey);
+  padding: 1.75rem 1.4rem 1.4rem;
+  box-shadow: 12px 10px 0 rgba(0, 0, 0, 0.85);
+  transition: border-color 120ms linear;
+}
+.win:hover, .win:focus-within, .win.active { border-color: var(--white); }
+.win > h2 {
+  position: absolute;
+  top: -0.78rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0 0.8ch;
+  background: var(--dos-blue);
+  font: 400 1.45rem/1 var(--font-dos);
+  letter-spacing: 0.04em;
+  color: var(--grey);
+  white-space: nowrap;
+}
+.win:hover > h2, .win:focus-within > h2, .win.active > h2 { color: var(--white); }
+/* Close box and window number, as the IDE draws them */
+.win::before, .win::after {
+  position: absolute;
+  top: -0.78rem;
+  background: var(--dos-blue);
+  font: 400 1.45rem/1 var(--font-dos);
+  padding: 0 0.5ch;
+}
+.win::before { content: "[\25A0]"; left: 1.2ch; color: var(--green); }
+.win::after { content: attr(data-n); right: 1.2ch; color: var(--grey); }
 
-section { display: grid; gap: 0.75rem; }
-h2 { margin: 0; font-size: 1rem; font-weight: 600; color: var(--ink-soft); }
+.about { grid-area: about; }
+.projects { grid-area: projects; }
+.support { grid-area: support; }
 
-.ledger { width: 100%; border-collapse: collapse; }
-.ledger td { padding: 0.95rem 1.25rem 0.95rem 0; border-top: 1px solid var(--rule); vertical-align: top; }
-.ledger tr:last-child td { border-bottom: 1px solid var(--rule); }
-.ledger td:last-child { padding-right: 0; }
-.ledger .name { width: 11.5rem; font-weight: 600; }
-.ledger .name a { color: var(--ink); text-decoration: none; }
-.ledger .name a:hover { color: var(--accent); text-decoration: underline; }
-.ledger .what { color: var(--ink-soft); }
-.ledger code { display: block; margin-top: 0.3rem; font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); overflow-wrap: anywhere; }
-.ledger .runs { width: 6.5rem; text-align: right; font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); padding-top: 1.15rem; white-space: nowrap; }
-@media (max-width: 600px) {
-  .ledger, .ledger tbody, .ledger tr, .ledger td { display: block; width: auto; }
-  .ledger tr { border-top: 1px solid var(--rule); padding-block: 0.9rem; display: grid; grid-template-columns: 1fr auto; gap: 0.2rem 1rem; }
-  .ledger tr:last-child { border-bottom: 1px solid var(--rule); }
-  .ledger td, .ledger tr:last-child td { border: 0; padding: 0; }
-  .ledger .name { width: auto; }
-  .ledger .runs { grid-column: 2; grid-row: 1; padding-top: 0.15rem; }
-  .ledger .what { grid-column: 1 / -1; }
+/* About: a Pascal program wrapped around plain sentences */
+.src { font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.6; }
+.src .kw { color: var(--white); font-weight: 700; }
+.src .id { color: var(--yellow); }
+.src .cm { color: var(--grey); }
+.about .prose { display: grid; gap: 0.9rem; margin: 1.1rem 0 1.1rem 2ch; }
+.about .prose p:first-child { font-size: 1.3rem; line-height: 1.5; color: var(--white); text-wrap: pretty; }
+.about .prose p + p { color: var(--grey); }
+.cursor { display: inline-block; width: 0.6em; height: 0.18em; background: var(--white); vertical-align: -0.1em; margin-left: 0.15ch; }
+@media (prefers-reduced-motion: no-preference) {
+  .cursor { animation: blink 1.06s steps(1) infinite; }
+  @keyframes blink { 50% { visibility: hidden; } }
 }
 
-.support p { margin: 0; max-width: 36rem; }
+/* Projects: the file list, with the IDE's cyan selection bar */
+.files { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.files th {
+  text-align: left;
+  font: 400 1.25rem/1 var(--font-dos);
+  color: var(--yellow);
+  padding: 0 1.25rem 0.6rem 0.6ch;
+  border-bottom: 1px solid var(--grey);
+}
+.files td { padding: 0.75rem 1.25rem 0.75rem 0.6ch; vertical-align: top; border-bottom: 1px dotted rgba(170, 170, 170, 0.45); }
+.files tr:last-child td { border-bottom: 0; }
+.files td:last-child, .files th:last-child { padding-right: 0.6ch; }
+.files .name { white-space: nowrap; font-weight: 700; }
+.files .name a { color: var(--white); text-decoration: none; }
+.files .runs { white-space: nowrap; color: var(--cyan); }
+.files code { font: inherit; color: var(--grey); overflow-wrap: anywhere; }
+.files tbody tr:hover td, .files tbody tr:focus-within td { background: var(--teal); color: var(--black); }
+.files tbody tr:hover a, .files tbody tr:focus-within a,
+.files tbody tr:hover code, .files tbody tr:focus-within code,
+.files tbody tr:hover .runs, .files tbody tr:focus-within .runs { color: var(--black); }
+.files a:focus-visible { outline-color: var(--black); }
+@media (max-width: 760px) {
+  .files thead { display: none; }
+  .files, .files tbody, .files tr, .files td { display: block; }
+  .files tr { padding-block: 0.7rem; border-bottom: 1px dotted rgba(170, 170, 170, 0.45); display: grid; grid-template-columns: 1fr auto; gap: 0.15rem 1rem; }
+  .files tr:last-child { border-bottom: 0; }
+  .files td, .files tr:last-child td { border: 0; padding: 0 0.6ch; }
+  .files .runs { grid-column: 2; grid-row: 1; }
+  .files .what, .files .id { grid-column: 1 / -1; }
+  .files tbody tr:hover, .files tbody tr:focus-within { background: var(--teal); }
+}
 
-footer { font-size: 0.875rem; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-footer a { color: var(--ink-soft); }
+/* Support: a dialog with the IDE's green buttons */
+.support .text { display: grid; gap: 0.9rem; }
+.support .text p:last-child { color: var(--grey); font-size: 0.9rem; }
+.buttons { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; margin-top: 1.4rem; }
+.btn {
+  display: inline-block;
+  background: var(--green);
+  color: var(--black);
+  font: 400 1.4rem/1 var(--font-dos);
+  text-decoration: none;
+  padding: 0.35rem 1.4ch;
+  box-shadow: 0.8ch 0.4rem 0 var(--black);
+}
+.btn:hover { background: #22c022; }
+.btn:active { transform: translate(0.8ch, 0.4rem); box-shadow: none; }
+.btn .hot { color: var(--yellow); }
