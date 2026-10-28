@@ -2,53 +2,84 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cloudroll Support</title>
-<meta name="description" content="Help and contact for Cloudroll, the iPhone app for Nextcloud Memories.">
-<link rel="stylesheet" href="/assets/site.css">
+<meta name="description" content="Help, bug reports and common questions for Cloudroll, the iPhone app for Nextcloud Memories.">
+<link rel="stylesheet" href="/cloudroll/cloudroll.css">
 <link rel="icon" href="/assets/cloudroll-icon.svg" type="image/svg+xml">
 </head>
 <body>
-<header class="site">
-  <a class="home" href="/">keasbeexd</a>
-  <nav>
-    <a href="/cloudroll/">Cloudroll</a>
-    <a href="https://github.com/keasbeexd">GitHub</a>
-    <a href="https://github.com/sponsors/keasbeexd">Sponsor</a>
-  </nav>
-</header>
-<main>
-<h1>Cloudroll support</h1>
-<p class="lede">Questions, bug reports and ideas are welcome.</p>
+<div class="band">
+  <div class="wrap topbar">
+    <a class="mark" href="/cloudroll/"><img src="/assets/cloudroll-icon.svg" alt="">Cloudroll</a>
+    <nav>
+      <a href="/cloudroll/support/" aria-current="page">Support</a>
+      <a href="/cloudroll/privacy/">Privacy</a>
+      <a href="https://github.com/keasbeexd/cloudroll">Source</a>
+      <a class="by" href="/">by keasbeexd</a>
+    </nav>
+  </div>
+  <div class="wrap doc-head">
+    <h1>Support</h1>
+    <p>Questions, bug reports and ideas are welcome.</p>
+  </div>
+</div>
+<div class="sprockets" aria-hidden="true"></div>
 
-<h2>Get help</h2>
-<ul>
-  <li><strong>Report a bug or ask a question:</strong> open an issue on <a href="https://github.com/keasbeexd/cloudroll/issues">GitHub</a>. A free GitHub account is needed.</li>
-</ul>
+<main class="wrap">
+  <div class="doc">
+    <section>
+      <h2>Ask a question or report a bug</h2>
+      <p>Open an issue on <a href="https://github.com/keasbeexd/cloudroll/issues">GitHub</a>. You'll need a free GitHub account. I read every one.</p>
+    </section>
 
-<h2>Reporting a bug</h2>
-<p>It helps to include:</p>
-<ul>
-  <li>Your Cloudroll version (Settings &gt; Version) and iOS version</li>
-  <li>Your Nextcloud and Memories versions</li>
-  <li>What you did, what you expected and what happened</li>
-  <li>The diagnostics log, if the problem is a page that won't load or an error: open Cloudroll's settings (the gear on the timeline, or touch and hold the tab bar), choose Diagnostics and share it. It contains paths on your server, never passwords. Look it over before posting it publicly.</li>
-</ul>
+    <section>
+      <h2>What to include in a bug report</h2>
+      <ul>
+        <li>Your Cloudroll version (in Cloudroll's settings) and your iOS version</li>
+        <li>Your Nextcloud and Memories versions</li>
+        <li>What you did, what you expected and what happened instead</li>
+        <li>The diagnostics log, if a page won't load or you see an error. Open Cloudroll's settings (the gear on the timeline, or touch and hold the tab bar), choose Diagnostics and share it. It lists paths on your server but never passwords. Read it over before posting it publicly.</li>
+      </ul>
+    </section>
 
-<h2>Common questions</h2>
-<h3>Sign-in doesn't finish</h3>
-<p>Cloudroll uses Nextcloud's own sign-in page, so your password never goes through the app. If the page stays open after you approve access, close it and try again, and check that your server address starts with https://.</p>
+    <section>
+      <h2>Common questions</h2>
+      <div class="qa">
+        <h3>Sign-in doesn't finish</h3>
+        <p>Cloudroll uses your server's own sign-in page, so your password never passes through the app. If the page stays open after you grant access, close it and try again, and check that the server address starts with https://.</p>
+      </div>
+      <div class="qa">
+        <h3>"Preparing Memories" takes a long time</h3>
+        <p>Cloudroll can't reach your server. After a few seconds you can cancel and retry, or switch to another account in Settings. Check that the server is online and reachable from where you are.</p>
+      </div>
+      <div class="qa">
+        <h3>Some features are missing</h3>
+        <p>The native viewer, phone photos in the timeline and the iOS controls need Memories 9 or later, which needs Nextcloud 34 or later. With older versions you get Memories' web interface.</p>
+      </div>
+      <div class="qa">
+        <h3>Signing out</h3>
+        <p>In Cloudroll's settings, swipe left on the account and choose Sign Out. Cloudroll also revokes its app password on your server. If it can't reach the server, remove the device yourself under Personal settings, then Security, in Nextcloud.</p>
+      </div>
+    </section>
 
-<h3>Some features are missing</h3>
-<p>The native viewer, phone photos in the timeline and the native controls need Memories 9 or later, which needs Nextcloud 34 or later. With older versions you get Memories' web interface.</p>
-
-<h3>Signing out</h3>
-<p>Open Cloudroll's settings, swipe left on the account and choose Sign Out. Cloudroll revokes its app password on your server; if it can't reach the server, remove the device under Personal settings &gt; Security in Nextcloud.</p>
-
-<p class="muted">See also the <a href="/cloudroll/privacy/">privacy policy</a>.</p>
+    <section>
+      <h2>Privacy</h2>
+      <p>Cloudroll collects no data. The <a href="/cloudroll/privacy/">privacy policy</a> has the details.</p>
+    </section>
+  </div>
 </main>
-<footer class="site">
-  Made by keasbeexd. Code on <a href="https://github.com/keasbeexd">GitHub</a>. Support my work on <a href="https://github.com/sponsors/keasbeexd">GitHub Sponsors</a> or <a href="https://ko-fi.com/keasbeexd">Ko-fi</a>.
+
+<footer class="foot">
+  <div class="wrap">
+    <span>Cloudroll is not affiliated with Nextcloud GmbH or the Memories project.</span>
+    <nav>
+      <a href="/cloudroll/">Cloudroll</a>
+      <a href="/cloudroll/support/">Support</a>
+      <a href="/cloudroll/privacy/">Privacy</a>
+      <a href="/">keasbeexd</a>
+    </nav>
+  </div>
 </footer>
 </body>
 </html>

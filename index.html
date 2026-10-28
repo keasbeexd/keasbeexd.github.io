@@ -2,43 +2,62 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>keasbeexd</title>
-<meta name="description" content="Free, open-source software by keasbeexd: Cloudroll for Nextcloud Memories and Omarchy plugins.">
+<meta name="description" content="Free, open-source software by keasbeexd: Cloudroll, an iPhone app for Nextcloud Memories, and plugins for Omarchy.">
 <link rel="stylesheet" href="/assets/site.css">
-<link rel="icon" href="/assets/cloudroll-icon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/plex-sans.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
-<header class="site">
-  <a class="home" href="/">keasbeexd</a>
-  <nav>
-    <a href="/cloudroll/">Cloudroll</a>
-    <a href="https://github.com/keasbeexd">GitHub</a>
-    <a href="https://github.com/sponsors/keasbeexd">Sponsor</a>
-  </nav>
-</header>
-<main>
-<h1>keasbeexd</h1>
-<p class="lede">I self-host my own cloud and build free, open-source software around it. Nothing is held back for paying users.</p>
+<main class="page">
+  <header class="intro">
+    <h1>keasbeexd</h1>
+    <p>I make free software for the things I use every day: an iPhone app for my self-hosted photos, and plugins for my Omarchy desktop.</p>
+    <p>All of it is open source on <a href="https://github.com/keasbeexd">GitHub</a>. None of it has a paid tier.</p>
+  </header>
 
-<h2>Apps</h2>
-<div class="cards">
-  <a class="card" href="/cloudroll/"><strong>Cloudroll</strong><span>An iPhone app for Memories, the photo gallery for Nextcloud.</span></a>
-</div>
+  <section aria-labelledby="projects">
+    <h2 id="projects">Projects</h2>
+    <table class="ledger">
+      <tbody>
+        <tr>
+          <td class="name"><a href="/cloudroll/">Cloudroll</a></td>
+          <td class="what">An iPhone app for Memories, the photo gallery for Nextcloud. In testing, coming to the App Store.<code>io.github.keasbeexd.cloudroll</code></td>
+          <td class="runs">iOS</td>
+        </tr>
+        <tr>
+          <td class="name"><a href="https://github.com/keasbeexd/omarchy-keepwell">Keepwell</a></td>
+          <td class="what">Security, privacy and system care in one place, built on the standard tools Arch already has.<code>keasbeexd.keepwell</code></td>
+          <td class="runs">Omarchy</td>
+        </tr>
+        <tr>
+          <td class="name"><a href="https://github.com/keasbeexd/omarchy-mouse-ctrl">Mouse CTRL</a></td>
+          <td class="what">Battery, DPI stages, LED colors, polling rate and sensor settings for G-Wolves and Pulsar mice, with a read-only view for other mice.<code>keasbeexd.mousectrl</code></td>
+          <td class="runs">Omarchy</td>
+        </tr>
+        <tr>
+          <td class="name"><a href="https://github.com/keasbeexd/omarchy-spanned-background">Spanned Background</a></td>
+          <td class="what">One wallpaper stretched across every connected monitor, like Windows' Span mode.<code>keasbeexd.spanned-background</code></td>
+          <td class="runs">Omarchy</td>
+        </tr>
+        <tr>
+          <td class="name"><a href="https://github.com/keasbeexd/omarchy-turbo-pascal-extras">Turbo Pascal Extras</a></td>
+          <td class="what">A few extras to go with the <a href="https://github.com/keylimesoda/omarchy-turbo-pascal-theme">Turbo Pascal theme</a>.</td>
+          <td class="runs">Omarchy</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
-<h2>Omarchy plugins</h2>
-<div class="cards">
-  <a class="card" href="https://github.com/keasbeexd/omarchy-keepwell"><strong>Keepwell</strong><span>omarchy-keepwell</span></a>
-  <a class="card" href="https://github.com/keasbeexd/omarchy-mouse-ctrl"><strong>Mouse Ctrl</strong><span>omarchy-mouse-ctrl</span></a>
-  <a class="card" href="https://github.com/keasbeexd/omarchy-spanned-background"><strong>Spanned Background</strong><span>omarchy-spanned-background</span></a>
-  <a class="card" href="https://github.com/keasbeexd/omarchy-turbo-pascal-extras"><strong>Turbo Pascal Extras</strong><span>omarchy-turbo-pascal-extras</span></a>
-</div>
+  <section class="support" aria-labelledby="support">
+    <h2 id="support">Support</h2>
+    <p>If something here saves you time, you can chip in on <a href="https://github.com/sponsors/keasbeexd">GitHub Sponsors</a> or <a href="https://ko-fi.com/keasbeexd">Ko-fi</a>. It doesn't unlock anything; it helps pay for the Apple developer fee and the hours.</p>
+  </section>
 
-<h2>Support</h2>
-<p>Everything here is free. If it's useful to you, you can chip in through <a href="https://github.com/sponsors/keasbeexd">GitHub Sponsors</a> or <a href="https://ko-fi.com/keasbeexd">Ko-fi</a>. Donations unlock nothing extra; they just keep the projects going.</p>
+  <footer>
+    <a href="https://github.com/keasbeexd">github.com/keasbeexd</a>
+    <a href="https://ko-fi.com/keasbeexd">ko-fi.com/keasbeexd</a>
+  </footer>
 </main>
-<footer class="site">
-  Made by keasbeexd. Code on <a href="https://github.com/keasbeexd">GitHub</a>. Support my work on <a href="https://github.com/sponsors/keasbeexd">GitHub Sponsors</a> or <a href="https://ko-fi.com/keasbeexd">Ko-fi</a>.
-</footer>
 </body>
 </html>

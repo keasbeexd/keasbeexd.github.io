@@ -2,64 +2,103 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cloudroll Privacy Policy</title>
 <meta name="description" content="Cloudroll collects no data. How the app handles your photos, account and settings.">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/cloudroll/cloudroll.css">
 <link rel="icon" href="/assets/cloudroll-icon.svg" type="image/svg+xml">
 </head>
 <body>
-<header class="site">
-  <a class="home" href="/">keasbeexd</a>
-  <nav>
-    <a href="/cloudroll/">Cloudroll</a>
-    <a href="https://github.com/keasbeexd">GitHub</a>
-    <a href="https://github.com/sponsors/keasbeexd">Sponsor</a>
-  </nav>
-</header>
-<main>
-<h1>Cloudroll privacy policy</h1>
-<p class="muted">Effective October 27, 2026</p>
+<div class="band">
+  <div class="wrap topbar">
+    <a class="mark" href="/cloudroll/"><img src="/assets/cloudroll-icon.svg" alt="">Cloudroll</a>
+    <nav>
+      <a href="/cloudroll/support/">Support</a>
+      <a href="/cloudroll/privacy/" aria-current="page">Privacy</a>
+      <a href="https://github.com/keasbeexd/cloudroll">Source</a>
+      <a class="by" href="/">by keasbeexd</a>
+    </nav>
+  </div>
+  <div class="wrap doc-head">
+    <h1>Privacy policy</h1>
+    <p>Effective October 27, 2026</p>
+  </div>
+</div>
+<div class="sprockets" aria-hidden="true"></div>
 
-<div class="note"><strong>In short:</strong> Cloudroll doesn't collect any data. It talks only to the Nextcloud servers you sign in to. There are no accounts with me, no analytics, no ads, no tracking and no third-party SDKs.</div>
+<main class="wrap">
+  <div class="doc">
+    <div class="label" role="note">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12.5 20.5l5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <strong>Data Not Collected</strong>
+      <p>Cloudroll talks only to the Nextcloud servers you sign in to. No accounts with me, no analytics, no ads, no tracking, no third-party SDKs.</p>
+    </div>
 
-<p>Cloudroll is an iPhone app made by keasbeexd, an individual developer ("I" below). This policy explains what the app does with your information. The source code is public on <a href="https://github.com/keasbeexd/cloudroll">GitHub</a>, so you can check it.</p>
+    <section>
+      <p>Cloudroll is an iPhone app made by keasbeexd, an individual developer ("I" below). This policy explains what the app does with your information. The source code is public on <a href="https://github.com/keasbeexd/cloudroll">GitHub</a>, so you can check it.</p>
+    </section>
 
-<h2>Your Nextcloud server</h2>
-<p>Cloudroll connects to the Nextcloud servers you add. Your photos, their details (such as dates and locations) and your account information travel between your iPhone and your server, and nowhere else. I never receive them. Your server is run by you or your provider, and its own privacy policy applies to the data stored there.</p>
+    <section>
+      <h2>Your Nextcloud server</h2>
+      <p>Cloudroll connects to the Nextcloud servers you add. Your photos, their details (such as dates and locations) and your account information travel between your iPhone and your server, and nowhere else. I never receive them. Your server is run by you or your provider, and its own privacy policy applies to the data stored there.</p>
+    </section>
 
-<h2>What stays on your iPhone</h2>
-<ul>
-  <li><strong>Sign-in:</strong> you sign in on your server's own page, so Cloudroll never sees your password. The server gives Cloudroll an app password, which is kept in the iPhone's Keychain for this device only and isn't synced. Signing out deletes it and revokes it on your server. iOS can keep Keychain items after an app is deleted, so sign out first if you want them removed.</li>
-  <li><strong>Settings and caches:</strong> your app settings, each account's web data (such as Memories' settings and cached pages) and temporary copies of photos you view or share. They stay on the device. Signing out removes the account's web data, iOS clears temporary files over time, and deleting the app removes everything except Keychain items (see above).</li>
-  <li><strong>Diagnostics:</strong> Cloudroll keeps a short log of errors in memory while it runs, to help with bug reports. It's never sent anywhere. You can choose to share it, and it's cleared when the app closes.</li>
-</ul>
+    <section>
+      <h2>What stays on your iPhone</h2>
+      <ul>
+        <li><strong>Sign-in.</strong> You sign in on your server's own page, so Cloudroll never sees your password. The server gives Cloudroll an app password, kept in the iPhone's Keychain for this device only and never synced. Signing out deletes it and revokes it on your server. iOS can keep Keychain items after an app is deleted, so sign out first if you want them gone.</li>
+        <li><strong>Settings and caches.</strong> Your app settings, each account's web data (such as Memories' settings and cached pages) and temporary copies of photos you view or share. They stay on the device. Signing out removes the account's web data, iOS clears temporary files over time, and deleting the app removes everything except Keychain items.</li>
+        <li><strong>Diagnostics.</strong> Cloudroll keeps a short log of errors in memory while it runs, to help with bug reports. It's never sent anywhere unless you share it yourself, and it's cleared when the app closes.</li>
+      </ul>
+    </section>
 
-<h2>Permissions</h2>
-<ul>
-  <li><strong>Photo library:</strong> used to show your iPhone's photos in the timeline and to save photos you choose. Phone photos are uploaded to your server only when you choose to upload them.</li>
-  <li><strong>Camera and microphone:</strong> used only when you take a photo or video to upload.</li>
-  <li><strong>Face ID:</strong> used only if you turn on the app lock. iOS checks your face; Cloudroll never receives biometric data.</li>
-</ul>
+    <section>
+      <h2>Permissions</h2>
+      <ul>
+        <li><strong>Photo library.</strong> Used to show your iPhone's photos in the timeline and to save photos you choose. Phone photos go to your server only when you upload them.</li>
+        <li><strong>Camera and microphone.</strong> Used only when you take a photo or video to upload.</li>
+        <li><strong>Face ID.</strong> Used only if you turn on the app lock. iOS checks your face; Cloudroll never receives biometric data.</li>
+      </ul>
+    </section>
 
-<h2>Maps</h2>
-<p>When a photo has a location, its info panel shows a map from Apple Maps, so that location is sent to Apple to draw the map (see <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>). Memories' own map view loads map images from the map provider configured on your server, OpenStreetMap by default.</p>
+    <section>
+      <h2>Maps</h2>
+      <p>When a photo has a location, its info panel shows a map from Apple Maps, so that location is sent to Apple to draw the map (see <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>). Memories' own map view loads map images from the map provider set up on your server, OpenStreetMap by default.</p>
+    </section>
 
-<h2>Tips</h2>
-<p>You can leave a tip in the app. Tips are optional in-app purchases handled by Apple; I don't receive your name, payment details or any other personal information, only Apple's sales reports. A tip unlocks a few extra app icons, remembered through your own iCloud account so they survive a reinstall.</p>
-<p>Donations through GitHub Sponsors or Ko-fi happen on those websites and follow their privacy policies.</p>
+    <section>
+      <h2>Tips</h2>
+      <p>You can leave a tip in the app. Tips are optional in-app purchases handled by Apple. I don't receive your name, payment details or any other personal information, only Apple's sales reports. A tip unlocks a few extra app icons, remembered through your own iCloud account so they survive a reinstall.</p>
+      <p>Donations through GitHub Sponsors or Ko-fi happen on those websites and follow their privacy policies.</p>
+    </section>
 
-<h2>Children</h2>
-<p>Cloudroll doesn't collect data from anyone, including children.</p>
+    <section>
+      <h2>Children</h2>
+      <p>Cloudroll doesn't collect data from anyone, including children.</p>
+    </section>
 
-<h2>Changes</h2>
-<p>If this policy changes, the new version is posted on this page with a new effective date. Earlier versions are in the site's history on GitHub.</p>
+    <section>
+      <h2>Changes</h2>
+      <p>If this policy changes, the new version is posted here with a new effective date. Earlier versions stay in the site's history on GitHub.</p>
+    </section>
 
-<h2>Contact</h2>
-<p>Questions about privacy: open an issue on <a href="https://github.com/keasbeexd/cloudroll/issues">GitHub</a>.</p>
+    <section>
+      <h2>Contact</h2>
+      <p>For questions about privacy, open an issue on <a href="https://github.com/keasbeexd/cloudroll/issues">GitHub</a>.</p>
+    </section>
+  </div>
 </main>
-<footer class="site">
-  Made by keasbeexd. Code on <a href="https://github.com/keasbeexd">GitHub</a>. Support my work on <a href="https://github.com/sponsors/keasbeexd">GitHub Sponsors</a> or <a href="https://ko-fi.com/keasbeexd">Ko-fi</a>.
+
+<footer class="foot">
+  <div class="wrap">
+    <span>Cloudroll is not affiliated with Nextcloud GmbH or the Memories project.</span>
+    <nav>
+      <a href="/cloudroll/">Cloudroll</a>
+      <a href="/cloudroll/support/">Support</a>
+      <a href="/cloudroll/privacy/">Privacy</a>
+      <a href="/">keasbeexd</a>
+    </nav>
+  </div>
 </footer>
 </body>
 </html>
