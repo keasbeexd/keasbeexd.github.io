@@ -112,6 +112,7 @@
     wins.forEach((x) => x.classList.toggle("active", x === w));
     active = w;
     if (focus) {
+      wins.forEach((x) => { if (x !== w) unzoom(x); });
       w.scrollIntoView({ block: "nearest", behavior: reduceMotion.matches ? "auto" : "smooth" });
       w.focus({ preventScroll: true });
     }
@@ -168,6 +169,15 @@
       bar.addEventListener("pointercancel", up);
     });
   }
+
+  // Menu bar links like #projects open their window, even after it was closed
+  $$('.menubar a[href^="#"]').forEach((a) => a.addEventListener("click", (e) => {
+    const w = wins.find((x) => `#${x.id}` === a.getAttribute("href"));
+    if (!w) return;
+    e.preventDefault();
+    activate(w, true);
+    history.replaceState(null, "", a.getAttribute("href"));
+  }));
 
   /* ---------- Dialogs ---------- */
 
@@ -266,7 +276,8 @@
     }
     $$("[data-crt]").forEach((b) => b.setAttribute("aria-checked", String(on)));
   }
-  if (store.get("keasbeexd.crt") === "1") root.classList.add("crt");
+  // On by default; the menu or the shell's CRT command turns it off, and that sticks
+  if (store.get("keasbeexd.crt") !== "0") root.classList.add("crt");
 
   /* ---------- DOS shell ---------- */
 

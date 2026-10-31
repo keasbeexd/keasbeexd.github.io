@@ -386,7 +386,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   outline: 0;
 }
 
-/* CRT effect: scanlines, a vignette and a little glow. Off by default. */
+/* CRT effect: scanlines, a vignette and a little glow. On by default (ide.js), off without the script. */
 .crt body { text-shadow: 0 0 3px rgba(255, 255, 255, 0.28); }
 .crt body::after {
   content: "";
