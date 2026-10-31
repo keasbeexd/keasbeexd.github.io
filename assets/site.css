@@ -201,3 +201,210 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 .foot span { padding-inline: 0.6ch; }
 .foot span:last-child { margin-left: auto; }
+
+/* ---------- Interactive IDE (ide.js adds .js to the root) ---------- */
+
+/* Menu bar buttons and pull-down menus */
+.mb { position: relative; display: inline-flex; }
+.mbtn, .foot .keys button {
+  font: inherit;
+  color: var(--black);
+  background: none;
+  border: 0;
+  padding: 0.15rem 0.6ch;
+  cursor: pointer;
+}
+.mbtn:hover, .mbtn[aria-expanded="true"] { background: var(--green); }
+.mbtn:focus-visible, .mitem:focus-visible, .wbox:focus-visible, .foot .keys button:focus-visible { outline: 2px solid var(--black); outline-offset: -2px; }
+.menu {
+  position: absolute;
+  top: calc(100% + 0.3rem);
+  left: 0;
+  z-index: 30;
+  min-width: 22ch;
+  display: grid;
+  padding: 0.3rem 0;
+  background: var(--grey);
+  border: 0.5ch solid var(--grey);
+  outline: 2px solid var(--black);
+  outline-offset: -0.5ch;
+  box-shadow: 1.2ch 0.6rem 0 rgba(0, 0, 0, 0.85);
+}
+.menu[hidden] { display: none; }
+.menu hr { border: 0; border-top: 2px solid var(--black); margin: 0.25rem 0; }
+.mitem {
+  display: flex;
+  justify-content: space-between;
+  gap: 3ch;
+  font: inherit;
+  text-align: left;
+  color: var(--black);
+  background: none;
+  border: 0;
+  padding: 0.2rem 1.5ch;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.mitem:hover, .mitem:focus-visible { background: var(--green); outline: 0; }
+.mitem .k { color: var(--dos-blue-dark); }
+.mitem[aria-checked="true"] > span:first-child::before { content: "\221A  "; }
+@media (max-width: 600px) { .js .menubar .who { display: none; } }
+@media (max-width: 440px) { .js .menubar { font-size: 1.15rem; } }
+
+/* Window boxes: real buttons in place of the drawn ones */
+.js .win::before { display: none; }
+.js .win::after { right: 6ch; }
+.wbox {
+  position: absolute;
+  top: -0.78rem;
+  z-index: 1;
+  background: var(--dos-blue);
+  border: 0;
+  padding: 0 0.5ch;
+  font: 400 1.45rem/1 var(--font-dos);
+  color: var(--green);
+  cursor: pointer;
+}
+.wclose { left: 1.2ch; }
+.wzoom { right: 1.2ch; }
+.wbox:hover { color: var(--yellow); }
+.win:focus { outline: 0; }
+.win.active { z-index: 2; }
+@media (hover: hover) and (pointer: fine) {
+  .js .win > h2 { cursor: move; user-select: none; }
+}
+.win.dragging { transition: none; box-shadow: 16px 14px 0 rgba(0, 0, 0, 0.6); }
+.win.zoomed {
+  position: fixed;
+  z-index: 20;
+  inset: calc(var(--bar-h, 3rem) + 1.25rem) max(18px, env(safe-area-inset-right, 0px)) calc(var(--foot-h, 2.5rem) + 1rem) max(18px, env(safe-area-inset-left, 0px));
+  translate: none !important;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+/* The zoomed window scrolls, so its title and boxes are pinned to the frame instead */
+.win.zoomed > h2, .win.zoomed > .wbox, .win.zoomed::after { position: fixed; top: calc(var(--bar-h, 3rem) + 1.25rem - 0.78rem); z-index: 21; }
+.win.zoomed > .wclose { left: calc(max(18px, env(safe-area-inset-left, 0px)) + 1.2ch + 4px); }
+.win.zoomed > .wzoom { right: calc(max(18px, env(safe-area-inset-right, 0px)) + 1.2ch + 4px); }
+.win.zoomed::after { right: calc(max(18px, env(safe-area-inset-right, 0px)) + 6ch + 4px); }
+
+/* Live GitHub line in the project list */
+.files .live { display: block; margin-top: 0.3rem; color: var(--cyan); font-size: 0.875rem; }
+.files tbody tr:hover .live, .files tbody tr:focus-within .live { color: var(--black); }
+
+/* Status line keys, for keyboards */
+.foot .keys { display: none; gap: 0 1ch; padding: 0; }
+.foot .keys button { padding: 0 0.6ch; }
+.foot .keys button:hover { background: var(--green); }
+@media (hover: hover) and (pointer: fine) {
+  .js .foot .keys { display: inline-flex; flex-wrap: wrap; }
+}
+
+/* Dialogs: grey boxes with a white double frame */
+.dlg {
+  position: fixed;
+  max-width: min(36rem, calc(100vw - 36px));
+  max-height: calc(100dvh - 6rem);
+  overflow: visible;
+  margin: auto;
+  padding: 1.6rem 2ch 1.3rem;
+  color: var(--black);
+  background: var(--grey);
+  border: 4px double var(--white);
+  box-shadow: 12px 10px 0 rgba(0, 0, 0, 0.85);
+  font: 400 1.35rem/1.25 var(--font-dos);
+}
+.dlg::backdrop { background: rgba(0, 0, 0, 0.3); }
+.dlg > h2 {
+  position: absolute;
+  top: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0 0.8ch;
+  background: var(--grey);
+  font: inherit;
+  color: var(--black);
+  white-space: nowrap;
+}
+.dlg p { margin-top: 0.8rem; }
+.dlg .buttons { justify-content: center; margin-top: 1.2rem; }
+.dlg .btn { border: 0; cursor: pointer; }
+.dlg .btn:focus-visible { outline: 2px solid var(--white); }
+.keys-list { display: grid; grid-template-columns: max-content 1fr; gap: 0.15rem 3ch; margin: 0; }
+.keys-list dt { color: var(--red); }
+.keys-list dd { margin: 0; }
+
+.make { width: min(36rem, calc(100vw - 36px)); }
+.make-info { display: grid; grid-template-columns: max-content 1fr; gap: 0 2ch; margin: 0 0 0.8rem; }
+.make-info dd { margin: 0; color: var(--dos-blue-dark); }
+.make .log {
+  margin: 0;
+  min-height: 7.5em;
+  padding: 0.5rem 1ch;
+  background: var(--dos-blue);
+  color: var(--white);
+  font: inherit;
+  font-size: 1.1rem;
+  white-space: pre;
+  overflow-x: auto;
+}
+.make .done { text-align: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .blink { animation: blink 1.06s steps(1) infinite; }
+}
+
+/* DOS shell: a black full screen */
+.shell {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+  overflow: auto;
+  padding: max(1rem, env(safe-area-inset-top, 0px)) max(18px, env(safe-area-inset-right, 0px)) max(1rem, env(safe-area-inset-bottom, 0px)) max(18px, env(safe-area-inset-left, 0px));
+  background: var(--black);
+  color: var(--grey);
+  font-size: 1.4rem;
+}
+.shell::backdrop { background: var(--black); }
+.shell > h2 { position: static; transform: none; background: none; color: var(--white); padding: 0; margin-bottom: 0.5rem; }
+.shell .out div { white-space: pre-wrap; overflow-wrap: anywhere; }
+.shell .out a { color: var(--cyan); }
+.shell .line { display: flex; }
+.shell input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  color: var(--white);
+  caret-color: var(--white);
+  background: none;
+  border: 0;
+  padding: 0;
+  outline: 0;
+}
+
+/* CRT effect: scanlines, a vignette and a little glow. Off by default. */
+.crt body { text-shadow: 0 0 3px rgba(255, 255, 255, 0.28); }
+.crt body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, transparent 58%, rgba(0, 0, 0, 0.55) 100%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .crt body::after { animation: flicker 6s steps(1) infinite; }
+  .crt-on body { animation: power-on 420ms ease-out; }
+  @keyframes flicker { 0%, 100% { opacity: 1; } 47% { opacity: 0.93; } 48% { opacity: 1; } 81% { opacity: 0.96; } }
+  @keyframes power-on {
+    0% { transform: scale(1, 0.004); filter: brightness(4); }
+    40% { transform: scale(1, 0.004); filter: brightness(4); }
+    100% { transform: none; filter: none; }
+  }
+}
