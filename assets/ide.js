@@ -170,7 +170,7 @@
     });
   }
 
-  // File > Projects and Support open their window, even after it was closed
+  // File > About, Projects and Support open their window, even after it was closed
   function openWin(id) {
     activate(wins.find((x) => x.id === id), true);
     history.replaceState(null, "", `#${id}`);
@@ -392,6 +392,7 @@
     ] },
     // A string in place of a function is a link
     { id: "file", key: "f", label: [h("span", { className: "hot", textContent: "F" }), "ile"], items: () => [
+      ["About", "", () => openWin("about")],
       ["Projects", "", () => openWin("projects")],
       ["Support", "", () => openWin("support")],
       "-",
