@@ -170,14 +170,11 @@
     });
   }
 
-  // Menu bar links like #projects open their window, even after it was closed
-  $$('.menubar a[href^="#"]').forEach((a) => a.addEventListener("click", (e) => {
-    const w = wins.find((x) => `#${x.id}` === a.getAttribute("href"));
-    if (!w) return;
-    e.preventDefault();
-    activate(w, true);
-    history.replaceState(null, "", a.getAttribute("href"));
-  }));
+  // File > Projects and Support open their window, even after it was closed
+  function openWin(id) {
+    activate(wins.find((x) => x.id === id), true);
+    history.replaceState(null, "", `#${id}`);
+  }
 
   /* ---------- Dialogs ---------- */
 
@@ -201,8 +198,10 @@
       ["F1", "This help"],
       ["F9", "Make: build every project"],
       ["F10", "Menu bar"],
+      ["Alt+F", "File menu"],
       ["Alt+C", "Compile menu"],
       ["Alt+W", "Window menu"],
+      ["Alt+H", "Help menu"],
       ["Alt+F3", "Close the active window"],
       ["`", "DOS shell"],
       ["Esc", "Close a menu, dialog or zoom"],
@@ -246,6 +245,15 @@
     d.addEventListener("keydown", anyKey);
   }
 
+  function showAbout() {
+    const d = dialog("help", "About",
+      h("p", { textContent: "keasbeexd, version 2026.10" }),
+      h("p", { textContent: "Plain HTML, CSS and one small script, served by GitHub Pages. Colors from keylimesoda's Turbo Pascal theme for Omarchy." }),
+      h("p", { textContent: "No cookies, no tracking." }));
+    d.append(okButton(d));
+    $("button", d.lastChild).focus();
+  }
+
   function showInfo() {
     const nav = performance.getEntriesByType("navigation")[0];
     const res = performance.getEntriesByType("resource");
@@ -281,7 +289,7 @@
 
   /* ---------- DOS shell ---------- */
 
-  function shell() {
+  function shell(initial) {
     const out = h("div", { className: "out", role: "log", ariaLive: "polite" });
     const input = h("input", { type: "text", autocomplete: "off", autocapitalize: "off", spellcheck: false, ariaLabel: "Command" });
     const prompt = h("label", { className: "line" }, h("span", { textContent: "C:\\KEASBEEXD>" }), input);
@@ -343,17 +351,21 @@
     };
     Object.assign(cmds, { ls: cmds.dir, cat: cmds.type, open: cmds.cd, clear: cmds.cls, "ko-fi": cmds.kofi, quit: cmds.exit });
 
+    function run(line) {
+      print(`C:\\KEASBEEXD>${line}`);
+      if (!line) return;
+      history.push(line);
+      hi = history.length;
+      const [cmd, ...rest] = line.split(/\s+/);
+      const fn = cmds[cmd.toLowerCase()];
+      fn ? fn(rest.join(" ")) : print("Bad command or file name", "");
+    }
+
     input.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         const line = input.value.trim();
         input.value = "";
-        print(`C:\\KEASBEEXD>${line}`);
-        if (!line) return;
-        history.push(line);
-        hi = history.length;
-        const [cmd, ...rest] = line.split(/\s+/);
-        const fn = cmds[cmd.toLowerCase()];
-        fn ? fn(rest.join(" ")) : print("Bad command or file name", "");
+        run(line);
       } else if (e.key === "ArrowUp" || e.key === "ArrowDown") {
         e.preventDefault();
         hi = Math.max(0, Math.min(history.length, hi + (e.key === "ArrowUp" ? -1 : 1)));
@@ -366,6 +378,7 @@
       }
     });
     d.addEventListener("click", () => { if (!getSelection().toString()) input.focus(); });
+    if (initial) run(initial);
     input.focus();
   }
 
@@ -374,9 +387,18 @@
   const menubar = $(".menubar");
   const menuDefs = [
     { id: "sys", label: [h("span", { textContent: "\u2261" })], aria: "System", items: () => [
-      ["Keyboard help", "F1", showHelp],
-      ["DOS shell", "`", shell],
+      ["About this site...", "", showAbout],
       ["CRT effect", "", () => setCrt(!root.classList.contains("crt"), true), "crt"],
+    ] },
+    // A string in place of a function is a link
+    { id: "file", key: "f", label: [h("span", { className: "hot", textContent: "F" }), "ile"], items: () => [
+      ["Projects", "", () => openWin("projects")],
+      ["Support", "", () => openWin("support")],
+      "-",
+      ["GitHub", "", "https://github.com/keasbeexd"],
+      ["X", "", "https://x.com/keasbeexd"],
+      "-",
+      ["DOS shell", "`", () => shell()],
     ] },
     { id: "compile", key: "c", label: [h("span", { className: "hot", textContent: "C" }), "ompile"], items: () => [
       ["Make", "F9", make],
@@ -388,6 +410,10 @@
       ["Zoom", "", () => zoom(active)],
       ["Close", "Alt+F3", () => closeWin(active)],
       ["Reset windows", "", resetWindows],
+    ] },
+    { id: "help", key: "h", label: [h("span", { className: "hot", textContent: "H" }), "elp"], items: () => [
+      ["Keyboard help", "F1", showHelp],
+      ["Shell commands", "", () => shell("help")],
     ] },
   ];
   let openMenu = null;
@@ -405,10 +431,12 @@
       list.replaceChildren(...def.items().map((it) => {
         if (it === "-") return h("hr", { role: "separator" });
         const [text, keys, fn, flag] = it;
-        const item = h("button", { type: "button", role: flag ? "menuitemcheckbox" : "menuitem", className: "mitem" },
-          h("span", { textContent: text }), h("span", { className: "k", textContent: keys }));
+        const label = [h("span", { textContent: text }), h("span", { className: "k", textContent: keys })];
+        const item = typeof fn === "string"
+          ? h("a", { href: fn, role: "menuitem", className: "mitem" }, ...label)
+          : h("button", { type: "button", role: flag ? "menuitemcheckbox" : "menuitem", className: "mitem" }, ...label);
         if (flag === "crt") { item.dataset.crt = ""; item.setAttribute("aria-checked", String(root.classList.contains("crt"))); }
-        item.addEventListener("click", () => { def.close(); fn(); });
+        item.addEventListener("click", () => { def.close(); if (typeof fn === "function") fn(); });
         return item;
       }));
       list.hidden = false;
@@ -448,14 +476,16 @@
     return wrap;
   }
 
+  // The plain links stay for visitors without the script; with it, they live in File
+  $$("a", menubar).forEach((a) => a.remove());
   $(".sys", menubar).replaceWith(buildMenu(menuDefs[0]));
-  $(".who", menubar).before(buildMenu(menuDefs[1]), buildMenu(menuDefs[2]));
+  $(".who", menubar).before(...menuDefs.slice(1).map(buildMenu));
   document.addEventListener("pointerdown", (e) => { if (openMenu && !e.target.closest(".mb")) openMenu.close(); });
 
   /* ---------- Status line ---------- */
 
   const keys = h("span", { className: "keys" });
-  for (const [k, label, fn] of [["F1", "Help", showHelp], ["F9", "Make", make], ["F10", "Menu", () => menuDefs[0].open(true)], ["`", "Shell", shell]]) {
+  for (const [k, label, fn] of [["F1", "Help", showHelp], ["F9", "Make", make], ["F10", "Menu", () => menuDefs[1].open(true)], ["`", "Shell", () => shell()]]) {
     const b = h("button", { type: "button" }, h("span", { className: "hot", textContent: k }), ` ${label}`);
     b.addEventListener("click", fn);
     keys.append(b);
@@ -470,7 +500,7 @@
     const k = e.key;
     if (k === "F1") { e.preventDefault(); showHelp(); }
     else if (k === "F9" && !e.ctrlKey) { e.preventDefault(); make(); }
-    else if (k === "F10") { e.preventDefault(); openMenu ? openMenu.close(true) : menuDefs[0].open(true); }
+    else if (k === "F10") { e.preventDefault(); openMenu ? openMenu.close(true) : menuDefs[1].open(true); }
     else if (k === "F3" && e.altKey) { e.preventDefault(); closeWin(active); }
     else if (e.altKey && !e.ctrlKey && !e.metaKey) {
       const def = menuDefs.find((m) => m.key && m.key === k.toLowerCase());

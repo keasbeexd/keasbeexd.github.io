@@ -245,11 +245,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   cursor: pointer;
   white-space: nowrap;
 }
+.menubar .menu a.mitem { text-decoration: none; padding: 0.2rem 1.5ch; color: var(--black); }
 .mitem:hover, .mitem:focus-visible { background: var(--green); outline: 0; }
 .mitem .k { color: var(--dos-blue-dark); }
 .mitem[aria-checked="true"] > span:first-child::before { content: "\221A  "; }
 @media (max-width: 600px) { .js .menubar .who { display: none; } }
-@media (max-width: 440px) { .js .menubar { font-size: 1.15rem; } }
 
 /* Window boxes: real buttons in place of the drawn ones */
 .js .win::before { display: none; }
