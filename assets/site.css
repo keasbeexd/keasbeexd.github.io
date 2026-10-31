@@ -350,6 +350,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   overflow-x: auto;
 }
 .make .done { text-align: center; }
+.dlg .note { font-size: 1.1rem; color: var(--dos-blue-dark); }
 @media (prefers-reduced-motion: no-preference) {
   .blink { animation: blink 1.06s steps(1) infinite; }
 }

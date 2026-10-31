@@ -196,7 +196,7 @@
   function showHelp() {
     const rows = [
       ["F1", "This help"],
-      ["F9", "Make: build every project"],
+      ["F9", "Make: a pretend build that shows each project's latest GitHub info"],
       ["F10", "Menu bar"],
       ["Alt+F", "File menu"],
       ["Alt+C", "Compile menu"],
@@ -223,7 +223,8 @@
       h("dt", { textContent: "Destination:" }), h("dd", { textContent: "GitHub Pages" }),
       h("dt", { textContent: "Units:" }), h("dd", {}, count, ` of ${projects.length}`),
       h("dt", { textContent: "Free memory:" }), h("dd", { textContent: "640K" }));
-    const d = dialog("make", "Compiling", info, log, done);
+    const note = h("p", { className: "note", textContent: "Just for fun: nothing is compiled. The versions, dates and stars are real, read from GitHub." });
+    const d = dialog("make", "Compiling", info, log, done, note);
     let open = true;
     d.addEventListener("close", () => { open = false; });
     const wait = (ms) => new Promise((r) => setTimeout(r, reduceMotion.matches ? 0 : ms));
@@ -255,19 +256,22 @@
   }
 
   function showInfo() {
+    // Real numbers from the browser's own timing data for this visit
     const nav = performance.getEntriesByType("navigation")[0];
     const res = performance.getEntriesByType("resource");
-    const bytes = [nav, ...res].reduce((n, e) => n + (e ? e.transferSize || e.encodedBodySize || 0 : 0), 0);
+    const own = res.filter((e) => new URL(e.name).origin === location.origin);
+    const size = [nav, ...own].reduce((n, e) => n + (e ? e.decodedBodySize || 0 : 0), 0);
+    const cookies = document.cookie ? document.cookie.split(";").length : 0;
     const rows = [
-      ["Page size", `${(bytes / 1024).toFixed(1)}K transferred`],
-      ["Requests", String(res.length + 1)],
+      ["Site files", `${own.length + 1}, ${(size / 1024).toFixed(1)}K`],
+      ["GitHub requests", `${res.length - own.length}, for live project info`],
       ["Load time", nav ? `${Math.round(nav.loadEventEnd || nav.domComplete)} ms` : "n/a"],
-      ["Scripts", "1, this one"],
-      ["Cookies", "0"],
-      ["Trackers", "0"],
+      ["Cookies", String(cookies)],
+      ["Trackers", "none"],
     ];
     const dl = h("dl", { className: "keys-list" }, ...rows.flatMap(([k, v]) => [h("dt", { textContent: k }), h("dd", { textContent: v })]));
-    const d = dialog("help", "Information", dl);
+    const d = dialog("help", "Information", dl,
+      h("p", { className: "note", textContent: "Measured by your browser for this visit. If GitHub info was cached earlier in this session, there are no GitHub requests." }));
     d.append(okButton(d));
     $("button", d.lastChild).focus();
   }
@@ -307,7 +311,7 @@
         "TYPE <name>     Show what a project does (TYPE ABOUT.PAS for me)",
         "CD <name>       Open a project's page",
         "SPONSOR, KOFI   Support my work",
-        "MAKE            Build every project",
+        "MAKE            Pretend build with live GitHub info",
         "CRT             Turn the CRT effect on or off",
         "VER, DATE, CLS, WHOAMI, ECHO, EXIT"),
       dir: () => {
