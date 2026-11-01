@@ -23,7 +23,7 @@
 
   /* ---------- Socials: one list, used by the Socials menu and the shell ---------- */
 
-  // [name, handle, url]; Discord has no public profile URL
+  // [name, handle, url]; Discord and Epic have no public profile URL
   const socials = [
     ["GitHub", "keasbeexd", "https://github.com/keasbeexd"],
     ["X", "@keasbeexd", "https://x.com/keasbeexd"],
@@ -31,7 +31,12 @@
     ["Twitch", "keasbeexd", "https://www.twitch.tv/keasbeexd"],
     ["Steam", "keasbeexd", "https://steamcommunity.com/id/keasbeexd/"],
     ["Reddit", "u/keasbeexd", "https://www.reddit.com/user/keasbeexd/"],
+    ["Instagram", "@keasbeexd", "https://www.instagram.com/keasbeexd/"],
     ["Discord", "keasbeexd", null],
+    ["Epic Games", "keasbeexd", null],
+    ["GOG", "keasbeexd", "https://www.gog.com/u/keasbeexd"],
+    ["Fiverr", "keasbeexd", "https://www.fiverr.com/keasbeexd"],
+    ["Email", "keasbeexd@mailbox.org", "mailto:keasbeexd@mailbox.org"],
   ];
 
   /* ---------- Projects, read from the table ---------- */
@@ -269,10 +274,10 @@
     $("button", d.lastChild).focus();
   }
 
-  function showDiscord() {
-    const d = dialog("help", "Discord",
-      h("p", { textContent: "I'm keasbeexd on Discord." }),
-      h("p", { textContent: "Discord has no public profile pages, so search for that username to add me." }));
+  function showHandle(name, handle) {
+    const d = dialog("help", name,
+      h("p", { textContent: `I'm ${handle} on ${name}.` }),
+      h("p", { textContent: `${name} has no public profile pages, so search for that name to add me.` }));
     d.append(okButton(d));
     $("button", d.lastChild).focus();
   }
@@ -432,7 +437,7 @@
       ["DOS shell", "`", () => shell()],
     ] },
     { id: "socials", key: "s", label: [h("span", { className: "hot", textContent: "S" }), "ocials"], items: () => [
-      ...socials.map(([name, handle, url]) => [name, handle, url || (() => showDiscord())]),
+      ...socials.map(([name, handle, url]) => [name, handle, url || (() => showHandle(name, handle))]),
     ] },
     { id: "compile", key: "c", label: [h("span", { className: "hot", textContent: "C" }), "ompile"], items: () => [
       ["Make", "F9", make],
