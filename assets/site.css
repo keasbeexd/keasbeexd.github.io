@@ -150,9 +150,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .src .kw { color: var(--white); font-weight: 700; }
 .src .id { color: var(--yellow); }
 .src .cm { color: var(--grey); }
-.about .prose { display: grid; gap: 0.9rem; margin: 1.1rem 0 1.1rem 2ch; }
-.about .prose p:first-child { font-size: 1.3rem; line-height: 1.5; color: var(--white); text-wrap: pretty; }
-.about .prose p + p { color: var(--grey); }
+.src .str { color: var(--cyan); }
+.src.body { padding-left: 2ch; }
+/* The intro is a Pascal { comment }: readable white text, grey braces, the
+   opening brace hanging in the margin so every line starts at the same column */
+.about .comment { display: grid; gap: 0.8rem; margin: 1.1rem 0; padding-left: 2ch; font-size: 1.05rem; line-height: 1.6; color: var(--white); text-wrap: pretty; }
+.about .comment p:first-child { text-indent: -2ch; }
+.about .comment .cm { color: var(--grey); font-weight: 700; }
 .cursor { display: inline-block; width: 0.6em; height: 0.18em; background: var(--white); vertical-align: -0.1em; margin-left: 0.15ch; }
 @media (prefers-reduced-motion: no-preference) {
   .cursor { animation: blink 1.06s steps(1) infinite; }
