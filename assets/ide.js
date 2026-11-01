@@ -23,21 +23,13 @@
 
   /* ---------- Socials: one list, used by the Socials menu and the shell ---------- */
 
-  // [name, handle, url]; Discord and Epic have no public profile URL
-  const socials = [
-    ["GitHub", "keasbeexd", "https://github.com/keasbeexd"],
-    ["X", "@keasbeexd", "https://x.com/keasbeexd"],
-    ["YouTube", "@keasbeexd", "https://www.youtube.com/@keasbeexd"],
-    ["Twitch", "keasbeexd", "https://www.twitch.tv/keasbeexd"],
-    ["Steam", "keasbeexd", "https://steamcommunity.com/id/keasbeexd/"],
-    ["Reddit", "u/keasbeexd", "https://www.reddit.com/user/keasbeexd/"],
-    ["Instagram", "@keasbeexd", "https://www.instagram.com/keasbeexd/"],
-    ["Discord", "keasbeexd", null],
-    ["Epic Games", "keasbeexd", null],
-    ["GOG", "keasbeexd", "https://www.gog.com/u/keasbeexd"],
-    ["Fiverr", "keasbeexd", "https://www.fiverr.com/keasbeexd"],
-    ["Email", "keasbeexd@mailbox.org", "mailto:keasbeexd@mailbox.org"],
-  ];
+  // Read from SOCIALS.DIR, so the page is the one list: [name, handle, url].
+  // Entries without a link (Discord, Epic Games) have no public profile pages.
+  const socials = $$(".links li").map((li) => {
+    const a = $("a", li);
+    const name = (a || $(".nolink", li)).textContent;
+    return [name, (a && a.dataset.handle) || "keasbeexd", a ? a.href : null];
+  });
 
   /* ---------- Projects, read from the table ---------- */
 
@@ -369,7 +361,7 @@
       },
       socials: () => {
         for (const [name, handle, url] of socials) {
-          print(url ? h("div", {}, `${name.padEnd(9)}`, h("a", { href: url, textContent: handle })) : `${name.padEnd(9)}${handle}`);
+          print(url ? h("div", {}, `${name.padEnd(12)}`, h("a", { href: url, textContent: handle })) : `${name.padEnd(12)}${handle}`);
         }
         print("");
       },
@@ -444,7 +436,7 @@
       ["Information...", "", showInfo],
     ] },
     { id: "window", key: "w", label: [h("span", { className: "hot", textContent: "W" }), "indow"], items: () => [
-      ...wins.map((w, i) => [`${i + 1} ${title(w)}`, w.hidden ? "closed" : "", () => activate(w, true)]),
+      ...[...wins].sort((x, y) => x.dataset.n - y.dataset.n).map((w) => [`${w.dataset.n} ${title(w)}`, w.hidden ? "closed" : "", () => activate(w, true)]),
       "-",
       ["Zoom", "", () => zoom(active)],
       ["Close", "Alt+F3", () => closeWin(active)],
