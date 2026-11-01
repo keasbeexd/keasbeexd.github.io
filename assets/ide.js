@@ -180,7 +180,7 @@
     });
   }
 
-  // File > About, Projects and Support open their window, even after it was closed
+  // File > About, Projects, Support and Socials open their window, even after it was closed
   function openWin(id) {
     activate(wins.find((x) => x.id === id), true);
     history.replaceState(null, "", `#${id}`);
@@ -346,6 +346,7 @@
       type: (arg) => {
         if (/^about/i.test(arg)) return print($(".about .prose").textContent.trim().replace(/\s+/g, " "), "");
         if (/^support/i.test(arg)) return print($(".support .text").textContent.trim(), "");
+        if (/^socials/i.test(arg)) return cmds.socials();
         const p = findProject(arg);
         if (!p) return print(arg ? "File not found" : "Required parameter missing", "");
         print(`${p.name} (${p.runs})`, p.what);
@@ -425,10 +426,13 @@
       ["About", "", () => openWin("about")],
       ["Projects", "", () => openWin("projects")],
       ["Support", "", () => openWin("support")],
+      ["Socials", "", () => openWin("socials")],
       "-",
       ["DOS shell", "`", () => shell()],
     ] },
     { id: "socials", key: "s", label: [h("span", { className: "hot", textContent: "S" }), "ocials"], items: () => [
+      ["Open SOCIALS.DIR", "", () => openWin("socials")],
+      "-",
       ...socials.map(([name, handle, url]) => [name, handle, url || (() => showHandle(name, handle))]),
     ] },
     { id: "compile", key: "c", label: [h("span", { className: "hot", textContent: "C" }), "ompile"], items: () => [
