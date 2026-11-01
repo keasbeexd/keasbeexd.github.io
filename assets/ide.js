@@ -21,6 +21,19 @@
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
   root.classList.add("js");
 
+  /* ---------- Socials: one list, used by the Socials menu and the shell ---------- */
+
+  // [name, handle, url]; Discord has no public profile URL
+  const socials = [
+    ["GitHub", "keasbeexd", "https://github.com/keasbeexd"],
+    ["X", "@keasbeexd", "https://x.com/keasbeexd"],
+    ["YouTube", "@keasbeexd", "https://www.youtube.com/@keasbeexd"],
+    ["Twitch", "keasbeexd", "https://www.twitch.tv/keasbeexd"],
+    ["Steam", "keasbeexd", "https://steamcommunity.com/id/keasbeexd/"],
+    ["Reddit", "u/keasbeexd", "https://www.reddit.com/user/keasbeexd/"],
+    ["Discord", "keasbeexd", null],
+  ];
+
   /* ---------- Projects, read from the table ---------- */
 
   const projects = $$(".files tbody tr").map((row) => {
@@ -199,6 +212,7 @@
       ["F9", "Make: a pretend build that shows each project's latest GitHub info"],
       ["F10", "Menu bar"],
       ["Alt+F", "File menu"],
+      ["Alt+S", "Socials menu"],
       ["Alt+C", "Compile menu"],
       ["Alt+W", "Window menu"],
       ["Alt+H", "Help menu"],
@@ -251,6 +265,14 @@
       h("p", { textContent: "keasbeexd, version 2026.10" }),
       h("p", { textContent: "Plain HTML, CSS and one small script, served by GitHub Pages. Colors from keylimesoda's Turbo Pascal theme for Omarchy." }),
       h("p", { textContent: "No cookies, no tracking." }));
+    d.append(okButton(d));
+    $("button", d.lastChild).focus();
+  }
+
+  function showDiscord() {
+    const d = dialog("help", "Discord",
+      h("p", { textContent: "I'm keasbeexd on Discord." }),
+      h("p", { textContent: "Discord has no public profile pages, so search for that username to add me." }));
     d.append(okButton(d));
     $("button", d.lastChild).focus();
   }
@@ -310,6 +332,7 @@
         "DIR             List projects",
         "TYPE <name>     Show what a project does (TYPE ABOUT.PAS for me)",
         "CD <name>       Open a project's page",
+        "SOCIALS         Where else to find me",
         "SPONSOR, KOFI   Support my work",
         "MAKE            Pretend build with live GitHub info",
         "CRT             Turn the CRT effect on or off",
@@ -338,6 +361,12 @@
         if (!p) return print(arg ? "Invalid directory" : "C:\\KEASBEEXD", "");
         print(`Opening ${p.name}...`);
         location.href = p.url;
+      },
+      socials: () => {
+        for (const [name, handle, url] of socials) {
+          print(url ? h("div", {}, `${name.padEnd(9)}`, h("a", { href: url, textContent: handle })) : `${name.padEnd(9)}${handle}`);
+        }
+        print("");
       },
       sponsor: () => { print("Opening GitHub Sponsors..."); location.href = "https://github.com/sponsors/keasbeexd"; },
       kofi: () => { print("Opening Ko-fi..."); location.href = "https://ko-fi.com/keasbeexd"; },
@@ -400,10 +429,10 @@
       ["Projects", "", () => openWin("projects")],
       ["Support", "", () => openWin("support")],
       "-",
-      ["GitHub", "", "https://github.com/keasbeexd"],
-      ["X", "", "https://x.com/keasbeexd"],
-      "-",
       ["DOS shell", "`", () => shell()],
+    ] },
+    { id: "socials", key: "s", label: [h("span", { className: "hot", textContent: "S" }), "ocials"], items: () => [
+      ...socials.map(([name, handle, url]) => [name, handle, url || (() => showDiscord())]),
     ] },
     { id: "compile", key: "c", label: [h("span", { className: "hot", textContent: "C" }), "ompile"], items: () => [
       ["Make", "F9", make],
