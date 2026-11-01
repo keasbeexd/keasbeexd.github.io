@@ -77,12 +77,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   padding-right: max(18px, env(safe-area-inset-right, 0px));
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
-  grid-template-areas: "about support" "socials socials" "projects projects";
+  grid-template-areas: "about support" "projects projects" "socials socials";
   gap: calc(var(--gap) * 2) calc(var(--gap) * 1.6);
   align-items: start;
 }
 @media (max-width: 820px) {
-  .desktop { grid-template-columns: minmax(0, 1fr); grid-template-areas: "about" "socials" "projects" "support"; }
+  .desktop { grid-template-columns: minmax(0, 1fr); grid-template-areas: "about" "projects" "socials" "support"; }
 }
 
 .win {
