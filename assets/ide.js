@@ -21,7 +21,7 @@
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
   root.classList.add("js");
 
-  /* ---------- Socials: one list, used by the Socials menu and the shell ---------- */
+  /* ---------- Socials: read from SOCIALS.DIR for the shell's SOCIALS command ---------- */
 
   // Read from SOCIALS.DIR, so the page is the one list: [name, handle, url].
   // Entries without a link (Discord, Epic Games) have no public profile pages.
@@ -209,7 +209,6 @@
       ["F9", "Make: a pretend build that shows each project's latest GitHub info"],
       ["F10", "Menu bar"],
       ["Alt+F", "File menu"],
-      ["Alt+S", "Socials menu"],
       ["Alt+C", "Compile menu"],
       ["Alt+W", "Window menu"],
       ["Alt+H", "Help menu"],
@@ -262,14 +261,6 @@
       h("p", { textContent: "keasbeexd, version 2026.10" }),
       h("p", { textContent: "Plain HTML, CSS and one small script, served by GitHub Pages. Colors from keylimesoda's Turbo Pascal theme for Omarchy." }),
       h("p", { textContent: "No cookies, no tracking." }));
-    d.append(okButton(d));
-    $("button", d.lastChild).focus();
-  }
-
-  function showHandle(name, handle) {
-    const d = dialog("help", name,
-      h("p", { textContent: `I'm ${handle} on ${name}.` }),
-      h("p", { textContent: `${name} has no public profile pages, so search for that name to add me.` }));
     d.append(okButton(d));
     $("button", d.lastChild).focus();
   }
@@ -429,11 +420,6 @@
       ["Socials", "", () => openWin("socials")],
       "-",
       ["DOS shell", "`", () => shell()],
-    ] },
-    { id: "socials", key: "s", label: [h("span", { className: "hot", textContent: "S" }), "ocials"], items: () => [
-      ["Open SOCIALS.DIR", "", () => openWin("socials")],
-      "-",
-      ...socials.map(([name, handle, url]) => [name, handle, url || (() => showHandle(name, handle))]),
     ] },
     { id: "compile", key: "c", label: [h("span", { className: "hot", textContent: "C" }), "ompile"], items: () => [
       ["Make", "F9", make],
