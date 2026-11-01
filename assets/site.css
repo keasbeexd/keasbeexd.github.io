@@ -77,12 +77,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   padding-right: max(18px, env(safe-area-inset-right, 0px));
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
-  grid-template-areas: "about support" "projects projects";
+  grid-template-areas: "about support" "socials socials" "projects projects";
   gap: calc(var(--gap) * 2) calc(var(--gap) * 1.6);
   align-items: start;
 }
 @media (max-width: 820px) {
-  .desktop { grid-template-columns: minmax(0, 1fr); grid-template-areas: "about" "projects" "support"; }
+  .desktop { grid-template-columns: minmax(0, 1fr); grid-template-areas: "about" "socials" "projects" "support"; }
 }
 
 .win {
@@ -122,6 +122,28 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .about { grid-area: about; }
 .projects { grid-area: projects; }
 .support { grid-area: support; }
+.socials { grid-area: socials; }
+
+/* Socials: grouped like directories in the IDE's file list */
+.socials .note { color: var(--grey); margin-bottom: 1rem; }
+.socials .note strong { color: var(--white); }
+.links { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem 1.25rem; }
+.links h3 {
+  margin: 0 0 0.4rem;
+  padding: 0 0.6ch 0.35rem;
+  border-bottom: 1px solid var(--grey);
+  font: 400 1.25rem/1 var(--font-dos);
+  color: var(--yellow);
+}
+.links ul { list-style: none; margin: 0; padding: 0; display: grid; }
+.links li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 1ch; padding: 0.3rem 0.6ch; }
+.links li a, .links .nolink { color: var(--white); font-weight: 700; text-decoration: none; }
+.links .hint { color: var(--grey); font-size: 0.875rem; }
+.links li:hover, .links li:focus-within { background: var(--teal); }
+.links li:hover a, .links li:focus-within a, .links li:hover .nolink, .links li:hover .hint, .links li:focus-within .hint { color: var(--black); }
+.links a:focus-visible { outline-color: var(--black); }
+@media (max-width: 820px) { .links { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 380px) { .links { grid-template-columns: minmax(0, 1fr); } }
 
 /* About: a Pascal program wrapped around plain sentences */
 .src { font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.6; }
