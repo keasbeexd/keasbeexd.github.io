@@ -335,7 +335,7 @@
         print(`${String(projects.length).padStart(9)} file(s)`, "");
       },
       type: (arg) => {
-        if (/^about/i.test(arg)) return print($(".about .prose").textContent.trim().replace(/\s+/g, " "), "");
+        if (/^about/i.test(arg)) return print($(".about .comment").textContent.replace(/[{}]/g, "").trim().replace(/\s+/g, " "), "");
         if (/^support/i.test(arg)) return print($(".support .text").textContent.trim(), "");
         if (/^socials/i.test(arg)) return cmds.socials();
         const p = findProject(arg);
