@@ -417,7 +417,7 @@
       ["About", "", () => openWin("about")],
       ["Projects", "", () => openWin("projects")],
       ["Support", "", () => openWin("support")],
-      ["Socials", "", () => openWin("socials")],
+      ["Socials", "", () => openWin("elsewhere")],
       "-",
       ["DOS shell", "`", () => shell()],
     ] },

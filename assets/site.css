@@ -122,11 +122,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .about { grid-area: about; }
 .projects { grid-area: projects; }
 .support { grid-area: support; }
-.socials { grid-area: socials; }
+.elsewhere { grid-area: socials; }
 
 /* Socials: grouped like directories in the IDE's file list */
-.socials .note { color: var(--grey); margin-bottom: 1rem; }
-.socials .note strong { color: var(--white); }
+.elsewhere .note { color: var(--grey); margin-bottom: 1rem; }
+.elsewhere .note strong { color: var(--white); }
 .links { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem 1.25rem; }
 .links h3 {
   margin: 0 0 0.4rem;
