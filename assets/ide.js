@@ -185,6 +185,8 @@
     activate(wins.find((x) => x.id === id), true);
     history.replaceState(null, "", `#${id}`);
   }
+  // Old links to #socials: that id is hidden by ad blockers, so the window is #elsewhere now
+  if (location.hash === "#socials") openWin("elsewhere");
 
   /* ---------- Dialogs ---------- */
 
