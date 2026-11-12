@@ -43,7 +43,8 @@
       name: link.textContent,
       key: link.textContent.toLowerCase().replace(/[^a-z]/g, ""),
       url: link.href,
-      repo: href.startsWith("/cloudroll") ? "cloudroll" : href.split("/").pop(),
+      repo: link.dataset.repo || (href.startsWith("/cloudroll") ? "cloudroll" : href.split("/").pop()),
+      release: link.dataset.version === "release",
       plugin: /^keasbeexd\./.test($(".what code", row)?.textContent || ""),
       runs: $(".runs", row).textContent,
       what: what.textContent.trim(),
@@ -66,7 +67,7 @@
     }
     return "just now";
   };
-  const CACHE = "keasbeexd.github.v1";
+  const CACHE = "keasbeexd.github.v2";
   let github = null; // { repo: { pushed, stars, version? } }
 
   async function loadGitHub() {
@@ -82,6 +83,14 @@
       const r = repos.find((x) => x.name === p.repo);
       if (!r) return;
       d[p.repo] = { pushed: r.pushed_at, stars: r.stargazers_count };
+      if (p.release) {
+        // the latest full release (pre-releases aren't "latest")
+        try {
+          const rel = await fetch(`https://api.github.com/repos/keasbeexd/${p.repo}/releases/latest`);
+          if (rel.ok) d[p.repo].version = String((await rel.json()).tag_name || "").replace(/^v/, "") || undefined;
+        } catch {}
+        return;
+      }
       if (!p.plugin) return;
       try {
         const m = await fetch(`https://raw.githubusercontent.com/keasbeexd/${p.repo}/${r.default_branch}/manifest.json`);
