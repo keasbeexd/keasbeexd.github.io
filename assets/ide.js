@@ -33,7 +33,7 @@
 
   /* ---------- Projects, read from the table ---------- */
 
-  const projects = $$(".files tbody tr").map((row) => {
+  const projects = $$(".files tbody tr:not(.dir)").map((row) => {
     const link = $(".name a", row);
     const href = link.getAttribute("href");
     const what = $(".what", row).cloneNode(true);

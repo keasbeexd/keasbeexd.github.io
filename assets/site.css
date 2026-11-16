@@ -184,6 +184,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .files tbody tr:hover code, .files tbody tr:focus-within code,
 .files tbody tr:hover .runs, .files tbody tr:focus-within .runs { color: var(--black); }
 .files a:focus-visible { outline-color: var(--black); }
+/* a folder (NGM\) and the projects inside it, in tree lines */
+.files tr.dir .name { color: var(--yellow); }
+.files tr.dir td { border-bottom: 0; padding-bottom: 0.2rem; }
+.files tr.sub td { border-bottom: 0; padding-top: 0.35rem; padding-bottom: 0.35rem; }
+.files tr.sub:has(+ tr:not(.sub)) td { border-bottom: 1px dotted rgba(170, 170, 170, 0.45); padding-bottom: 0.75rem; }
+.files .tree { color: var(--grey); font-weight: 400; }
 @media (max-width: 760px) {
   .files thead { display: none; }
   .files, .files tbody, .files tr, .files td { display: block; }
