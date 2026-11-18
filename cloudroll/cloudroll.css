@@ -104,6 +104,7 @@ p { margin: 0; }
 .hero .lede { font-size: 1.3rem; line-height: 1.45; color: var(--cloud-dim); max-width: 31rem; }
 .hero .row { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center; margin-top: 0.5rem; }
 .hero .soon { font-size: 0.9375rem; color: var(--cloud-dim); }
+.hero a.soon:hover { color: var(--cloud); }
 @media (max-width: 560px) { .hero { grid-template-columns: 1fr; } }
 
 .btn { display: inline-block; padding: 0.6rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.9375rem; text-decoration: none; background: var(--amber); color: var(--night-deep); }
